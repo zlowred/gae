@@ -1,13 +1,17 @@
 package login
 
 import (
+	"appengine"
+	"appengine/user"
 	"fmt"
 	"net/http"
-	"appengine/user"
-	"appengine"
 )
 
-func Login(w http.ResponseWriter, r *http.Request) {
+func init() {
+	http.HandleFunc("/", login)
+}
+
+func login(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	u := user.Current(c)
 	if u == nil {
